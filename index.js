@@ -56,9 +56,11 @@ app.post('/cache', async(req,res)=>{
         return res.status(400).json({message:"key and value are required to store cache data"});
     }
     
+    const settings = await Settings.findOne();
+    const cacheLimit = settings ? settings.cacheLimit : 3;
     const countCachedDoc = await Cache.countDocuments();
 
-    if(countCachedDoc>=4){
+    if(countCachedDoc>=cacheLimit){
         return res.status(400).json({message:"Max size hit, can't store more cache"});
     }
     
