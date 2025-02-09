@@ -86,6 +86,9 @@ app.get('/cache/:key', async(req,res)=>{
     return res.status(200).json({key:cacheEntry.key,value:cacheEntry.value});
 })
 
+/**
+ * DELETE endpoint to delete the cache by KEY
+ */
 app.delete('/cache/:key',async(req,res)=>{
     const {key} = req.params;
     const deletedCache = await Cache.findOneAndDelete({key}); 
